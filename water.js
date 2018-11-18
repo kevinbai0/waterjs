@@ -3,58 +3,44 @@ function Water() {
 
     this.mount = function() {
         window.addEventListener("scroll", handleScroll);
+        // call handle scroll once
+        handleScroll();
     }
     this.unmount = function() {
         window.removeEventListener("scroll", handleScroll);
     }
 
-    let targetMapper = [];
-
+    let targetMap = [];
     let object = this;
 
     function handleScroll(event) {
-        let yOffset = window.pageYOffset;
-        let animatingList = [];
-        for (let target of targetMapper) {
-            let shouldAnimate = target.min <= yOffset && yOffset <= target.max
-            animatingList.push(target.name);
-        }
-        object.animationsManager.updateAnimationsFor(animatingList);
+        // return list of items to animatable for animating
+        // temporarily, return everything (optimizations to be made)
+        object.animationsManager.updateAnimationsFor(targetMap);
     }
 
     this.add = function(elementName, query) {
-        this.animationsManager.animatables[elementName] = query;
-        if (!query.target) return new ErrorEvent("No targets specified");
-        
-        if (query.keyframes) {
-            addTarget(elementName, query.target);
-            return this;
-        }
-    }
-
-    function addTarget(elementName, element) {
-        let offsetTop = element.offsetTop;
-        let height = window.innerHeight;
-        targetMapper.push({
-            min: offsetTop - height,
-            max: offsetTop + height,
-            name: elementName
-        })
+        this.animationsManager.animatables[elementName] = query;        
+        targetMap.push(elementName);
+        // return this for chaining
+        return this;
     }
 }
 
 function AnimationsManager() {
     this.animatables = {}
 
-    this.updateAnimationsFor = function(animatingList) {
-        for (let listItem of animatingList) {
-            let animatable = this.animatables[listItem];
-            let max = animatable.target.offsetTop;
-            let min = max - window.innerHeight;
-            let element = this.animatables[listItem].target;
+    this.updateAnimationsFor = function(targetMap) {
+        for (let target of targetMap) {
+            let animatable = this.animatables[target];
+            let element = this.animatables[target].target;
 
-            let percentage = (window.pageYOffset - min) / (window.innerHeight + element.offsetHeight);
-            
+            let max = element.offsetTop;
+            let min = max - window.innerHeight;
+            min = min < 0 ? 0 : min;
+
+            let percentage = (window.pageYOffset - min) / ((max-min) + element.offsetHeight);
+
             element.style.transform = ""
             for (keyframe in animatable.keyframes) {
                 if (animatable.keyframes[keyframe].length == 2) {
