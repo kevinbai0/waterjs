@@ -1,0 +1,80 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+div.major-div {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr;
+}
+div.major-div div.title {
+    font-size: 5vw;
+    align-self: center;
+    justify-self: center;
+}
+div.major-div div.code {
+    font-family: "Source Code Pro";
+    align-self: center;
+    justify-self: center;
+    margin: 5vw;
+    font-size: 2vw;
+    background-color: white;
+    padding: 2vw;
+    box-shadow: 0 2px 30px 0 rgba(0,0,0,0.5);
+    border-radius: 1vw;
+    
+}
+div.major-div div.code div.tab-1 {
+    padding: 0 0 0 3vw;
+}
+div.major-div div.code div.tab-2 {
+    padding: 0 0 0 6vw;
+}
+div.major-div div.code div.tab-3 {
+    padding: 0 0 0 9vw;
+}
+div.code span.c1 {
+    color: green;
+}
+div.code span.c2 {
+    color: #22C8C8;
+}
+div.code span.c3 {
+    color: darkorange;
+}
+div.code span.c4 {
+    color: firebrick;
+}
+div.code span.c5 {
+    color: #AFC822;
+}
+div.major-div div.title.light {
+    color: white;
+}
+#div-1 {
+    background-color: #DEDEA0;
+}
+#div-2 {
+    background-color: #76F092;
+}
+#div-3 {
+    background-color: #76F0D6
+}
+#div-4 {
+    background-color: #F08776;
+}
+#div-5 {
+    background-color: #F09315;
+    box-shadow: 0 10px 40px 0 rgba(0,0,0,0.5);
+}
+#div-6 {
+    background-color: #0CCE7F;
+}
+#div-7 {
+    background-color: #15F0C1;
+}
+#div-8 {
+    background-color: #1585F0;
+}
