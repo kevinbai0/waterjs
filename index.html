@@ -11,7 +11,6 @@
             div.major-div {
                 width: 100vw;
                 height: 100vh;
-                background-color: #DEDEA0;
                 display: grid;
             }
             div.major-div div.title {
@@ -19,77 +18,72 @@
                 align-self: center;
                 justify-self: center;
             }
-            div.div-2 {
+            div.major-div div.title.light {
+                color: white;
+            }
+            #div-1 {
+                background-color: #DEDEA0;
+            }
+            #div-2 {
                 background-color: #76F092;
             }
-            div.div-3 {
+            #div-3 {
                 background-color: #76F0D6
             }
-            div.div-4 {
+            #div-4 {
                 background-color: #F08776;
             }
-            div.horizontal {
-                width: 100vw;
-                height: 100vh;
-                display: grid;
-            }
-            div.horizontal-1 {
+            #div-5 {
                 background-color: #F09315;
                 box-shadow: 0 10px 40px 0 rgba(0,0,0,0.5);
             }
-            div.horizontal-2 {
+            #div-6 {
                 background-color: #0CCE7F;
             }
-            div.horizontal-3 {
+            #div-7 {
                 background-color: #15F0C1;
             }
-            div.horizontal-4 {
+            #div-8 {
                 background-color: #1585F0;
-            }
-            div.horizontal div.title {
-                align-self: center;
-                justify-self: center;
-                font-size: 5vw;
-                color: white;
             }
         </style>
     </head>
     <body>
-        <div class="major-div" id="divHello">
-            <div class="title">Hello</div>
+        <div class="major-div" id="div-1">
+            <div class="title" id="hello-english">Hello</div>
         </div>
-        <div class="major-div div-2">
+        <div class="major-div" id="div-2">
             <div class="title" id="hello-italian">Ciao</div>
         </div>
-        <div class="major-div div-3">
+        <div class="major-div" id="div-3">
             <div class="title" id="hello-chinese">你好</div>
         </div>
-        <div class="major-div div-4">
+        <div class="major-div" id="div-4">
             <div class="title">Hola</div>
         </div>
-        <div class="horizontal horizontal-1" id="goodmorning">
-            <div class="title">Good Morning</div>
+        <div class="major-div" id="div-5">
+            <div class="title light">Good Morning</div>
         </div>
-        <div class="horizontal horizontal-2">
-            <div class="title">Buongiorno</div>
+        <div class="major-div" id="div-6">
+            <div class="title light">Buongiorno</div>
         </div>
-        <div class="horizontal horizontal-3">
-            <div class="title">早上好</div>
+        <div class="major-div" id="div-7">
+            <div class="title light">早上好</div>
         </div>
-        <div class="horizontal horizontal-4">
-            <div class="title">Buenos días</div>
+        <div class="major-div" id="div-8">
+            <div class="title light">Buenos días</div>
         </div>
     </body>
-    <script type="text/javascript" src="animate-scroll.js"></script>
+    <script type="text/javascript" src="water.js"></script>
     <script>
-        var scrollProvider = new ScrollProvider();
-        scrollProvider.addAnimatable("hello", {
-            target: document.getElementById("divHello").getElementsByClassName("title")[0],
+        var water = new Water();
+        water.add("hello", {
+            target: document.getElementById("hello-english"),
             keyframes: {
                 translateX: [-500, 0],
                 opacity: [0, 1]
             }
-        }).addAnimatable("ciao", {
+        }).add("ciao", {
             target: document.getElementById("hello-italian"),
             keyframes: {
                 translateX: ["50vw", 0],
@@ -97,20 +91,20 @@
                 translateY: [100, -100],
                 opacity: [1,0],
             }
-        }).addAnimatable("chinese", {
+        }).add("chinese", {
             target: document.getElementById("hello-chinese"),
             keyframes: {
                 translateY: [-300, 100],
             }
-        }).addAnimatable("goodmorning", {
-            target: document.getElementById("goodmorning"),
+        }).add("goodmorning", {
+            target: document.getElementById("div-5"),
             keyframes: {
                 translateY: [-10, 10],
                 translateX: [-100, 100]
             }
         })
         
-        scrollProvider.mount();
+        water.mount();
         
     </script>
 </html>
