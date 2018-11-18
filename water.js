@@ -18,10 +18,12 @@ function Water() {
         // temporarily, return everything (optimizations to be made)
         object.animationsManager.updateAnimationsFor(targetMap);
     }
+    let uniqIdCounter = 0;
 
-    this.add = function(elementName, query) {
-        this.animationsManager.animatables[elementName] = query;        
-        targetMap.push(elementName);
+    this.add = function(query) {
+        let uniqId = uniqIdCounter++ + "" + Date.now();
+        this.animationsManager.animatables[uniqId] = query;        
+        targetMap.push(uniqId);
         // return this for chaining
         return this;
     }
@@ -38,6 +40,8 @@ function AnimationsManager() {
             let max = element.offsetTop;
             let min = max - window.innerHeight;
             min = min < 0 ? 0 : min;
+            max = max > (document.body.clientHeight - window.innerHeight) ? (document.body.clientHeight - window.innerHeight) : max;
+            
 
             let percentage = (window.pageYOffset - min) / ((max-min) + element.offsetHeight);
 
@@ -74,11 +78,13 @@ function AnimationsManager() {
         }
 
         let transformations = [
-            "rotate", "rotateX", "rotateY", "translateX", "translateY", "scaleX", "scaleY"
+            "rotate", "rotateX", "rotateY", "translateX", "translateY", "scale", "scaleX", "scaleY"
         ]
         for (transform of transformations) {
             if (keyframe === transform) {
-                element.style.transform += keyframe + "(" + percentValue + (extension ? extension + ")" : "px) ");
+                let transformExt = extension;
+                if (!transformExt && (keyframe === "translateX" || keyframe === "translateY")) transformExt = "px"
+                element.style.transform += keyframe + "(" + percentValue + transformExt;
             }
         }
     }
