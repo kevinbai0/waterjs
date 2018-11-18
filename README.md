@@ -22,6 +22,8 @@ Next, add each target you want to animate:
             }
         })
 
+Finally, mount the Water component with: `water.mount()`.
+
 Add the animations in the keyframes object. Each keyframe needs to values: a start value (when the element first enters a screen) and a final value (when the element exits the screen). The values in-between are interpolated linearly. Animations must be contained within `[]` brackets with only 2 values specified. Units may also be specified in the string format such as: `["20deg", "40deg"]`.
 
 Currently, the animatable properties are: `translateX`, `translateY`, `scale`, `scaleX`, `scaleY`, `rotate`, `rotateX`, `rotateY` and `opacity`.
