@@ -1,26 +1,23 @@
-function Water() {
-    this.animationsManager = new AnimationsManager();
+class Water {
+    animationsManager = new AnimationsManager();
 
-    this.mount = function() {
+    mount = function() {
         window.addEventListener("scroll", handleScroll);
         // call handle scroll once
         handleScroll();
     }
-    this.unmount = function() {
+    unmount = function() {
         window.removeEventListener("scroll", handleScroll);
     }
 
-    let targetMap = [];
-    let object = this;
-
-    function handleScroll(event) {
+    handleScroll(event) {
         // return list of items to animatable for animating
         // temporarily, return everything (optimizations to be made)
-        object.animationsManager.updateAnimationsFor(targetMap);
+        this.animationsManager.updateAnimationsFor(targetMap);
     }
-    let uniqIdCounter = 0;
+    uniqIdCounter = 0;
 
-    this.add = function(query) {
+    add = function(query) {
         let uniqId = uniqIdCounter++ + "" + Date.now();
         this.animationsManager.animatables[uniqId] = query;        
         targetMap.push(uniqId);
@@ -29,10 +26,12 @@ function Water() {
     }
 }
 
-function AnimationsManager() {
-    this.animatables = {}
+exports.water = Water;
 
-    this.updateAnimationsFor = function(targetMap) {
+class AnimationsManager {
+    animatables = {}
+
+    updateAnimationsFor = function(targetMap) {
         for (let target of targetMap) {
             let animatable = this.animatables[target];
             let element = this.animatables[target].target;
@@ -56,15 +55,15 @@ function AnimationsManager() {
         }
     }
 
-    this.updateKeyframe = function(element, keyframe, start, end, percentage) {
+    updateKeyframe = function(element, keyframe, start, end, percentage) {
         let extension = "";
         if (isNaN(start)) {
-            extension = getValueExtension(start);
+            extension = this.getValueExtension(start);
             if (extension == "err") return new ErrorEvent("Extension Error");
             start = parseInt(start.slice(0, -extension.length));
         }
         if (isNaN(end)) {
-            extension = getValueExtension(end);
+            extension = this.getValueExtension(end);
             if (extension == "err") return new ErrorEvent("Extension Error");
             end = parseInt(end.slice(0, -extension.length));
         }
@@ -88,7 +87,8 @@ function AnimationsManager() {
             }
         }
     }
-    let getValueExtension = function(value) {
+
+    getValueExtension = function(value) {
         let ending = "";
         if (value.length == 0) return "Err";
         for (let i = value.length - 1; i >= 0; i--) {
